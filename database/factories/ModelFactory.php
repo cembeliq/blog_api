@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -23,7 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
  */
 $factory->define(App\Templates::class, function ($faker) {
     return [
-        // Fields here
+        'name' => $faker->word
     ];
 });
 
@@ -31,17 +30,18 @@ $factory->define(App\Templates::class, function ($faker) {
  * Factory definition for model App\Checklists.
  */
 $factory->define(App\Checklists::class, function ($faker) {
+    $dt = \Carbon\carbon::now();
+    $dateNow = $dt->toDateTimeString();
     return [
-        'template_id' => $faker->key,
-    ];
-});
+        'template_id' => 1,
+        "object_domain" => $faker->word,
+        "object_id" => $faker->word,
+        "description" => $faker->word,
+        "is_completed" => true,
+        "completed_at" => $faker->word,
+        "due" => $dateNow,
+        "urgency" => $faker->numberBetween(1, 10),
 
-/**
- * Factory definition for model App\Checklists.
- */
-$factory->define(App\Checklists::class, function ($faker) {
-    return [
-        'template_id' => $faker->key,
     ];
 });
 
@@ -49,7 +49,18 @@ $factory->define(App\Checklists::class, function ($faker) {
  * Factory definition for model App\Items.
  */
 $factory->define(App\Items::class, function ($faker) {
+    $dt = \Carbon\carbon::now();
+    $dateNow = $dt->toDateTimeString();
     return [
-        'checklist_id' => $faker->key,
+        'checklist_id' => 1,
+        'description' => $faker->text,
+        'is_completed' => null,
+        'completed_at' => $faker->word,
+        'due' => $dateNow,
+        'urgency' => $faker->numberBetween(1, 10),
+        'updated_by' => $faker->word,
+        'assignee_id' => $faker->unique(true)->randomDigit,
+        'task_id' => $faker->unique(true)->randomDigit
+
     ];
 });
