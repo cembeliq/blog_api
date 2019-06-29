@@ -1,20 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChecklistTable extends Migration
+class CreateChecklistsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
-        Schema::create('checklist', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('checklists', function(Blueprint $table) {
+            $table->increments('id');
             $table->string('object_domain');
             $table->string('object_id');
             $table->string('description');
@@ -22,17 +17,16 @@ class CreateChecklistTable extends Migration
             $table->string('completed_at');
             $table->string('due');
             $table->integer('urgency');
+            $table->integer('template_id')->unsigned();
+            $table->foreign('template_id')
+                ->references('id')
+                ->on('templates');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('checklist');
+        Schema::drop('checklists');
     }
 }
