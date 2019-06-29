@@ -23,30 +23,34 @@ $router->get('/test', ['middleware' => 'auth.basic', function(){
 	return 'Hello world';
 }]);
 
-/**
- * Routes for resource templates
- */
-$router->get('templates', 'TemplatesController@all');
-$router->get('templates/{id}', 'TemplatesController@get');
-$router->post('templates', 'TemplatesController@add');
-$router->put('templates/{id}', 'TemplatesController@put');
-$router->delete('templates/{id}', 'TemplatesController@remove');
+$router->group([
+        'middleware' => 'auth.basic',
+    ], function ($router) {
+		/**
+		 * Routes for resource templates
+		 */
+		$router->get('templates', 'TemplatesController@all');
+		$router->get('templates/{id}', 'TemplatesController@get');
+		$router->post('templates', 'TemplatesController@add');
+		$router->put('templates/{id}', 'TemplatesController@put');
+		$router->delete('templates/{id}', 'TemplatesController@remove');
 
-/**
- * Routes for resource checklists
- */
-$router->get('checklists', 'ChecklistsController@all');
-$router->get('checklists/{id}', 'ChecklistsController@get');
-$router->post('checklists', 'ChecklistsController@add');
-$router->put('checklists/{id}', 'ChecklistsController@put');
-$router->delete('checklists/{id}', 'ChecklistsController@remove');
+		/**
+		 * Routes for resource checklists
+		 */
+		$router->get('checklists', 'ChecklistsController@all');
+		$router->get('checklists/{id}', 'ChecklistsController@get');
+		$router->post('checklists', 'ChecklistsController@add');
+		$router->put('checklists/{id}', 'ChecklistsController@put');
+		$router->delete('checklists/{id}', 'ChecklistsController@remove');
 
 
-/**
- * Routes for resource items
- */
-$router->get('items', 'ItemsController@all');
-$router->get('items/{id}', 'ItemsController@get');
-$router->post('items', 'ItemsController@add');
-$router->put('items/{id}', 'ItemsController@put');
-$router->delete('items/{id}', 'ItemsController@remove');
+		/**
+		 * Routes for resource items
+		 */
+		$router->get('items', 'ItemsController@all');
+		$router->get('items/{id}', 'ItemsController@get');
+		$router->post('items', 'ItemsController@add');
+		$router->put('items/{id}', 'ItemsController@put');
+		$router->delete('items/{id}', 'ItemsController@remove');
+});
