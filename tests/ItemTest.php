@@ -10,11 +10,10 @@ class ItemTest extends TestCase
         $this->seeJsonStructure([
             'data' => ['*' =>
                 [
-                    'product_name',
-                    'product_description',
+                    'checklist_id',
+                    'description',
                     'created_at',
                     'updated_at',
-                    'links'
                 ]
             ],
             'meta' => [
@@ -34,16 +33,22 @@ class ItemTest extends TestCase
      * /items/id [GET]
      */
     public function testShouldReturnItem(){
-        $this->get("items/2", []);
+        $this->get("items/3", []);
         $this->seeStatusCode(200);
         $this->seeJsonStructure(
             ['data' =>
                 [
-                    'product_name',
-                    'product_description',
+                    'id',
+                    'description',
+                    'is_completed',
+                    'completed_at',
+                    'due',
+                    'urgency',
+                    'assignee_id',
+                    'task_id',
+                    'checklist_id',
                     'created_at',
                     'updated_at',
-                    'links'
                 ]
             ]    
         );
@@ -54,19 +59,24 @@ class ItemTest extends TestCase
      */
     public function testShouldCreateItem(){
         $parameters = [
-            'product_name' => 'Infinix',
-            'product_description' => 'NOTE 4 5.7-Inch IPS LCD (3GB, 32GB ROM) Android 7.0 ',
+            'description' => 'Infinix',
+            'is_completed' => 'ok', 
+            'completed_at' => '1', 
+            'due' => '1', 
+            'urgency' => '1', 
+            'updated_by' => 'test',
+            'assignee_id' => '1', 
+            'task_id' => 1,
+            'checklist_id' => 1,
         ];
         $this->post("items", $parameters, []);
         $this->seeStatusCode(200);
         $this->seeJsonStructure(
             ['data' =>
                 [
-                    'product_name',
-                    'product_description',
-                    'created_at',
-                    'updated_at',
-                    'links'
+                    'id',
+                    'description',
+                    'checklist_id',
                 ]
             ]    
         );
@@ -78,19 +88,17 @@ class ItemTest extends TestCase
      */
     public function testShouldUpdateItem(){
         $parameters = [
-            'product_name' => 'Infinix Hot Note',
-            'product_description' => 'Champagne Gold, 13M AF + 8M FF 4G Smartphone',
+            'description' => 'Champagne Gold',
+            'checklist_id' => 1,
         ];
         $this->put("items/4", $parameters, []);
         $this->seeStatusCode(200);
         $this->seeJsonStructure(
             ['data' =>
                 [
-                    'product_name',
-                    'product_description',
-                    'created_at',
-                    'updated_at',
-                    'links'
+                    'id',
+                    'description',
+                    'checklist_id',
                 ]
             ]    
         );
@@ -100,7 +108,7 @@ class ItemTest extends TestCase
      */
     public function testShouldDeleteItem(){
         
-        $this->delete("items/5", [], []);
+        $this->delete("items/4", [], []);
         $this->seeStatusCode(410);
         $this->seeJsonStructure([
                 'status',

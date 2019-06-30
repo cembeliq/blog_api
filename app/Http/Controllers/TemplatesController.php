@@ -3,6 +3,7 @@
 class TemplatesController extends Controller {
 
     const MODEL = "App\Templates";
+    const TRANSFORMER = "App\Transformers\TemplateTransformer";
 
     use RESTActions;
 
