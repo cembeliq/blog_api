@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Templates extends Model {
 
-    protected $fillable = ["name"];
+    protected $fillable = ["name", "checklist", "item"];
 
     protected $dates = [];
 

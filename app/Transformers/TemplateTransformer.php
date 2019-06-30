@@ -10,13 +10,8 @@ class TemplateTransformer extends Fractal\TransformerAbstract
 	    return [
 	        'id'      => (int) $data->id,
 	        'name'   => $data->name,
-	        // 'created_at'    =>  $data->created_at->format('d-m-Y'),
-	        // 'updated_at'    =>  $data->updated_at->format('d-m-Y'),
-            'links'   => [
-                [
-                    'uri' => 'template/'.$data->id,
-                ]
-            ],
+	        'checklist' => $data->checklist,
+	        'item' => $data->item
 	    ];
 	}
 }

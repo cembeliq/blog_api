@@ -8,7 +8,7 @@ class ChecklistsController extends Controller {
     const TRANSFORMER = "App\Transformers\ChecklistTransformer";
     use RESTActions{
     	all as protected getAll;
-    };
+    }
 
     function all(){
     	$data = [];

@@ -42,7 +42,8 @@ trait RESTActions {
         $transformer = self::TRANSFORMER;
         $model = $m::find($id);
         if(is_null($model)){
-            return $this->respond(Response::HTTP_NOT_FOUND);
+            // return $this->respond(Response::HTTP_NOT_FOUND);
+            return $this->customResponse('Item not found!', 404);
         }
         $resource = new Item($model, new $transformer);
         return $this->fractal->createData($resource)->toArray();
@@ -67,7 +68,8 @@ trait RESTActions {
         $this->validate($request, $m::$rules);
         $model = $m::find($id);
         if(is_null($model)){
-            return $this->respond(Response::HTTP_NOT_FOUND);
+            // return $this->respond(Response::HTTP_NOT_FOUND);
+            return $this->customResponse('Item not found!', 404);
         }
         $model->update($request->all());
         $resource = new Item($m::find($id), new $transformer); 
@@ -79,7 +81,7 @@ trait RESTActions {
     {
         $m = self::MODEL;
         if(is_null($m::find($id))){
-            return $this->errorResponse('Item not found!', 404);
+            return $this->customResponse('Item not found!', 404);
             // return $this->respond(Response::HTTP_NOT_FOUND);
         }
         //Return 410(done) success response if delete was successful

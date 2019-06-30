@@ -26,6 +26,7 @@ $router->get('/test', ['middleware' => 'auth.basic', function(){
 $router->group([
         'middleware' => 'auth.basic',
     ], function ($router) {
+    	$router->post('checklists/templates', 'TemplatesController@createChecklistsTemplates');
 		/**
 		 * Routes for resource templates
 		 */
